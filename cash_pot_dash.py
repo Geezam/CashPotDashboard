@@ -10,7 +10,6 @@ df = load_data()
 
 meaning_map = {}
 for num, meaning in NUM_MEANINGS.items():
-    # Safety check: Ensure we have enough emojis
     emoji = EMOJI_LIST[num - 1] if (num - 1) < len(EMOJI_LIST) else ""
     meaning_map[num] = f"{meaning} {emoji}"
 
@@ -34,8 +33,6 @@ def format_func(option):
 selection = st.selectbox("Select a View:", options, format_func=format_func)
 
 st.divider()
-
-# --- 6. LOGIC SWITCH ---
 
 if selection == "Global Overview":
     render_global_overview(df, meaning_map)
