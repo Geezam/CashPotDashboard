@@ -56,7 +56,7 @@ def load_data():
     return df
 
 
-def render_global_overview(data, meaning_map):
+def render_overview(data, meaning_map):
     st.header("🎲 CASH POT Number Frequency Overview")
     st.markdown("Below is the frequency distribution of all drawn numbers "
                 "from 2017 to 2021.")
@@ -87,19 +87,19 @@ def render_global_overview(data, meaning_map):
 
     c1, c2 = st.columns(2)
     with c1:
-        st.subheader("🔥 Top 5 Hot Numbers")
+        st.subheader("Most Drawn")
         top_5 = global_counts.sort_values('Count', ascending=False).head(5)
         st.dataframe(top_5[['Number', 'Meaning', 'Count']],
                      hide_index=True, use_container_width=True)
 
     with c2:
-        st.subheader("❄️ Top 5 Cold Numbers")
+        st.subheader("Least Drawn")
         bot_5 = global_counts.sort_values('Count', ascending=True).head(5)
         st.dataframe(bot_5[['Number', 'Meaning', 'Count']],
                      hide_index=True, use_container_width=True)
 
 
-def render_detail_dashboard(data, title_suffix, total_dataset_size, meaning):
+def render_details(data, title_suffix, total_dataset_size, meaning):
     """Renders the specific stats for a selected number."""
     if len(data) == 0:
         st.warning("No data available for this period.")
@@ -138,6 +138,7 @@ def render_detail_dashboard(data, title_suffix, total_dataset_size, meaning):
         # 4. Plot with specific Sort Order
         fig_bar = px.bar(final_counts, x='Draw Name', y='Count',
                          title=f"Luckiest Draw Time for {meaning}",
+                         color_discrete_sequence=['#217C36'],
                          category_orders={"Draw Name": ["Earlybird",
                                                         "Morning", "Midday",
                                                         "Mid Afternoon",
@@ -150,5 +151,6 @@ def render_detail_dashboard(data, title_suffix, total_dataset_size, meaning):
         monthly_trend = ts_data.resample('ME').size().reset_index(name='Count')
 
         fig_line = px.line(monthly_trend, x='timestamp', y='Count',
+                           color_discrete_sequence=['#217C36'],
                            markers=True, title=f"Trend ({title_suffix})")
         st.plotly_chart(fig_line, use_container_width=True)
