@@ -32,8 +32,7 @@ def load_data():
 
     df = df.rename(columns={
         "WinningNumber": "drawn_number",
-        "Date": "timestamp"
-    })
+        "Date": "timestamp"})
 
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     df['date'] = df['timestamp'].dt.date

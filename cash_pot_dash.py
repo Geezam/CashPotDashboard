@@ -1,6 +1,5 @@
 import streamlit as st
-from functions import (load_data, render_overview,
-                       render_details)
+from functions import (load_data, render_overview, render_details)
 from constants import EMOJI_LIST, NUM_MEANINGS
 
 st.set_page_config(page_title="Cash Pot Draw Analyzer 2017-2021",
