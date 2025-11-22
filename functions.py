@@ -1,5 +1,3 @@
-# functions.py
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -9,6 +7,8 @@ from constants import SLOT_LABELS
 
 @st.cache_data
 def load_data():
+    """Loads data from csv data files, creates data frame
+    and maps 6 draws times to names"""
     all_files = glob.glob("csv/cashpot_*.csv")
 
     if not all_files:
@@ -56,6 +56,7 @@ def load_data():
 
 
 def render_overview(data, meaning_map):
+    """Renders stats for ALL numbers/data."""
     st.header("🎲 CASH POT Number Frequency Overview")
     st.markdown("Below is the frequency distribution of all drawn numbers "
                 "from 2017 to 2021.")
